@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs/promises");
+const cron = require("node-cron");
 
 async function scrapeData() {
   const browswer = await puppeteer.launch();
@@ -84,3 +85,11 @@ async function scrapeData() {
 }
 
 scrapeData();
+
+// automate scraping per 5secs
+
+// naive way
+setInterval(scrapeData, 5000);
+
+// more sophisticated way
+cron.schedule("*/5 * * * * *", scrapeData);
